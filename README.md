@@ -32,9 +32,9 @@ kvManagedUserDemo1 - Key Vault
 
 1. To build all Azure resources required, run `Build-AzureResources.ps1`. Change the parameters to meet your needs.
 
-    ```powershell
-    .\AdminScripts\Build-AzureResources.ps1 -objectRootName "ManagedUser" -DomainName "asquaredozenlab.com" -LicenseGroupName "License" -GroupTag "Kiosk" -UPNPrefix "KSK"
-    ```
+  ```powershell
+  .\AdminScripts\Build-AzureResources.ps1 -objectRootName "ManagedUser" -DomainName "asquaredozenlab.com" -LicenseGroupName "License" -GroupTag "Kiosk" -UPNPrefix "KSK"
+  ```
 
 2. Change function app settings for all function apps:
 
@@ -95,38 +95,38 @@ The solution requires a client-side script that will run to configure autologon/
 
 1. Create the intunewin file from the `ClientScripts` content
 
-   ```powershell
-   .\Build-ClientInstallApp.ps1 -SourcePath = ".\ClientScripts" -SetupFile = "install.ps1" -OutputFolder = ".\Win32"`
-   ```
+ ```powershell
+ .\Build-ClientInstallApp.ps1 -SourcePath = ".\ClientScripts" -SetupFile = "install.ps1" -OutputFolder = ".\Win32"`
+ ```
 
 2. Get the Function App URL from the Client function App.
 3. Create a new Intune Win32 App with this command line
 
-    ```powershell
-    %windir%\sysnative\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File "install.ps1" -Uri "<CLIENT FUNCTION APP COMMAND LINE FROM STEP 2>"
-    ```
+  ```powershell
+  %windir%\sysnative\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File "install.ps1" -Uri "<CLIENT FUNCTION APP COMMAND LINE FROM STEP 2>"
+  ```
 
 ## New Managed User
 
-    ```powershell
-    .\AdminScripts\NewManagedUser.ps1 -FunctionAppURI "https://<Admin function App URL>" -DeviceSerialNumbers @('ABCD1245''FEWE2343') 
-    ```
+  ```powershell
+  .\AdminScripts\NewManagedUser.ps1 -FunctionAppURI "https://<Admin function App URL>" -DeviceSerialNumbers @('ABCD1245''FEWE2343') 
+  ```
 
 ## Assign Managed User
 
-    ```powershell
-    $UserToDeviceMap = @(
-        [PSCustomObject]@{
-            UserPrincipalName = "UPN"
-            SerialNumber      = "SerialNumber"
-        }
-    )
-    
-    .\AdminScripts\AssignManagedUser.ps1 -FunctionAppURI "https://<Admin function App URL>" -UserToDeviceMap $UserToDeviceMap
-    ```
+  ```powershell
+  $UserToDeviceMap = @(
+      [PSCustomObject]@{
+          UserPrincipalName = "UPN"
+          SerialNumber      = "SerialNumber"
+      }
+  )
+  
+  .\AdminScripts\AssignManagedUser.ps1 -FunctionAppURI "https://<Admin function App URL>" -UserToDeviceMap $UserToDeviceMap
+  ```
 
 ## Manage Managed User
 
-    ```powershell
-    .\AdminScripts\ManageManagedUser.ps1 -FunctionAppURI "https://<Admin function App URL>" -UserPrincipalName "MyUPN" -Password "MyPassword"
-    ```
+  ```powershell
+  .\AdminScripts\ManageManagedUser.ps1 -FunctionAppURI "https://<Admin function App URL>" -UserPrincipalName "MyUPN" -Password "MyPassword"
+  ```
