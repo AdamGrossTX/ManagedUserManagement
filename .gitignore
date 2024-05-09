@@ -10,8 +10,5 @@ __blobstorage__
 __queuestorage__
 __azurite_db*__.json
 .vscode/*
-Demo/1 - Build-AzureResources.mp4
-Demo/2 - Configure Azure Functions.mp4
-Demo/3 - Create and Assign.mp4
-Demo/4 - GetAssignedUser.mp4
-Win32/install.intunewin
+
+assets/*.mp4

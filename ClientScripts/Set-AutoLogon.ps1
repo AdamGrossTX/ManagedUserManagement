@@ -38,10 +38,11 @@
 #>
 [cmdletbinding()]
 param(
-    [string]$Uri = "https://faasdmanageduserdemo1client.azurewebsites.net",
+    [parameter(Mandatory=$true)]
+    [string]$Uri,
     [switch]$Disable = $false,
     [string]$Tag = 'KSK',
-    [string]$OneDriveOrgName = "OneDrive - A Square Dozen Lab"
+    [string]$OneDriveOrgName
 )
 
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;

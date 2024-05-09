@@ -47,7 +47,7 @@
 [cmdletbinding()]
 param(
     [version]$version = '4.0.0.0',
-    [string]$client = "ASDLab",
+    [string]$client = "ASquareDozen",
     [string]$AppDisplayName = "KioskAutoLogon",
     [string]$AppPublisher = "A Square Dozen",
     [parameter(Mandatory=$true)]
