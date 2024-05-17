@@ -163,7 +163,7 @@ try {
 
     if ($IntuneDeviceCert -and $EntraDeviceCert) {
         $AdminParams = @{
-            URI             = "$($FunctionAppURI)/api/ManageManagedUser?UserPrincipalName=$($UserPrincipalName)&Password=$($Password)&ResetPassword=$($ResetPasswor.IsPresent)"
+            URI             = "$($FunctionAppURI)/api/ManageManagedUser?UserPrincipalName=$($UserPrincipalName)&Password=$($Password)&ResetPassword=$($ResetPassword.IsPresent)"
             Headers         = @{
                 EntraDeviceCert  = [System.Convert]::ToBase64String($EntraDeviceCert.GetRawCertData())
                 IntuneDeviceCert = [System.Convert]::ToBase64String($IntuneDeviceCert.GetRawCertData())
@@ -172,7 +172,7 @@ try {
         }
         try {
             Write-Host "Managing User $($UserPrincipalName)" -NoNewline -ForegroundColor Cyan
-            $Response = Invoke-RestMethod -Uri @AdminParams
+            $Response = Invoke-RestMethod @AdminParams
             Write-Host " - Done" -ForegroundColor Green
         }
         catch {
