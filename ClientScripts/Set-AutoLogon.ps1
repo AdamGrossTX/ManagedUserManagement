@@ -632,8 +632,14 @@ try {
                     }
                     UseBasicParsing = $true
                 }
-                    
-                $GetClientCredsResult = Invoke-RestMethod @ClientCredsParams
+                
+                try {
+                    $GetClientCredsResult = Invoke-RestMethod @ClientCredsParams
+                }
+                catch {
+                    Write-Host "Failed to get client creds."
+                    $_
+                }
                 $ClientCreds = $GetClientCredsResult
 
                 if (($ClientCreds.Name -eq $null) -or ($ClientCreds.Secret -eq $null )) {
