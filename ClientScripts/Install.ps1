@@ -111,7 +111,7 @@ try {
     $Settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -RunOnlyIfNetworkAvailable -StartWhenAvailable
     $Principal = New-ScheduledTaskPrincipal -UserId "NT AUTHORITY\SYSTEM" -RunLevel Highest -LogonType ServiceAccount
     $Triggers = @((New-ScheduledTaskTrigger -AtStartup))
-    $Action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle hidden -ExecutionPolicy bypass -NonInteractive -File `"$scriptsPath\$startUpScript`" `"-Uri $Uri`""
+    $Action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle hidden -ExecutionPolicy bypass -NonInteractive -File `"$scriptsPath\$startUpScript`" -Uri `"$Uri`""
     $TaskDefinition = New-ScheduledTask -Principal $Principal -Settings $Settings -Trigger $Triggers -Action $Action
     Register-ScheduledTask -TaskName $TaskName -TaskPath "$client\" -InputObject $TaskDefinition -Force
     Get-ScheduledTask -TaskName $TaskName | Start-ScheduledTask

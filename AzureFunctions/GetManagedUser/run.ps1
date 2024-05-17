@@ -207,7 +207,13 @@ try {
             $result += "Error - Intune and AutoPilot Device not found."
         }
         $UserPrincipalName = $APDevice.userPrincipalName
-        Write-Output "Found User $UserPrincipalName assigned to Autopilot device SerialNumber: $($APDevice.serialNumber)"
+        if($UserPrincipalName) {
+            Write-Output "Found User $UserPrincipalName assigned to Autopilot device SerialNumber: $($APDevice.serialNumber)"
+        }
+        else {
+            $status = [HttpStatusCode]::NotFound
+            $result += "Error - AutoPilot assigned user not found."
+        }
     }
     
     #endregion

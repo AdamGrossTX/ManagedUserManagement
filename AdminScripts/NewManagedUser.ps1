@@ -148,7 +148,7 @@ function Get-IntuneDeviceCert {
             return $Cert
         }
     
-}
+    }
     catch {
         throw $_
     }
@@ -160,18 +160,18 @@ try {
     $IntuneDeviceCert = Get-IntuneDeviceCert
 
     if ($IntuneDeviceCert -and $EntraDeviceCert) {
-        $AdminParams = @{
-            URI             = "$($FunctionAppURI)/api/NewManagedUser?DeviceSerialNumber=$($SerialNumber)"
-            Headers         = @{
-                EntraDeviceCert  = [System.Convert]::ToBase64String($EntraDeviceCert.GetRawCertData())
-                IntuneDeviceCert = [System.Convert]::ToBase64String($IntuneDeviceCert.GetRawCertData())
-            }
-            UseBasicParsing = $true
-        }
         $UserToDeviceMap = foreach ($SerialNumber in $DeviceSerialNumbers) {
+            $AdminParams = @{
+                URI             = "$($FunctionAppURI)/api/NewManagedUser?DeviceSerialNumber=$($SerialNumber)"
+                Headers         = @{
+                    EntraDeviceCert  = [System.Convert]::ToBase64String($EntraDeviceCert.GetRawCertData())
+                    IntuneDeviceCert = [System.Convert]::ToBase64String($IntuneDeviceCert.GetRawCertData())
+                }
+                UseBasicParsing = $true
+            }
             try {
                 Write-Host "Creating new user for device with serial number: $($SerialNumber)" -NoNewline -ForegroundColor Cyan
-                $Response = Invoke-RestMethod -Uri @AdminParams
+                $Response = Invoke-RestMethod @AdminParams
                 [PSCustomObject]@{
                     UserPrincipalName = $Response.Name
                     SerialNumber      = $SerialNumber
