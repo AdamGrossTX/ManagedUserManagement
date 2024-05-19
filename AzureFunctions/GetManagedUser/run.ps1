@@ -53,6 +53,9 @@ function Get-GraphData {
     }
 }
 
+# The following function validates that the API is presented with a known valid device thumbprint.
+# For the use case of a kiosk workstation, this is an acceptable additional risk.
+# For different use cases alternative authentication should be used (e.g., Intune Cert Profile or Azure Managed Identity)
 function Confirm-ClientCertAuth {
     [cmdletbinding()]
     param(
